@@ -30,7 +30,7 @@ public class ProgrammingLanguagesController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> add(@RequestBody ProgrammingLanguage programmingLanguage) throws Exception{
+    public ResponseEntity<String> add(@RequestBody ProgrammingLanguage programmingLanguage) throws Exception {
         try {
             plService.add(programmingLanguage);
             return ResponseEntity.created(null).body("created");
@@ -38,4 +38,17 @@ public class ProgrammingLanguagesController {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ProgrammingLanguage> update(@PathVariable("id") int id, @RequestBody ProgrammingLanguage newProgrammingLanguage) throws Exception {
+        try {
+            return ResponseEntity.ok(plService.update(id, newProgrammingLanguage));
+        } catch (Exception exception) {
+            System.err.println(exception.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable("id") int id) {plService.delete(id);}
 }
