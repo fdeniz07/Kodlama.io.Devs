@@ -1,6 +1,7 @@
 package kodlama.io.devs.business.concretes;
 
 import kodlama.io.devs.business.abstracts.ProgrammingLanguageService;
+import kodlama.io.devs.core.enums.LanguageMesageEnum;
 import kodlama.io.devs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlama.io.devs.entities.concretes.ProgrammingLanguage;
 import org.springframework.stereotype.Service;
@@ -27,17 +28,41 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
     }
 
     @Override
-    public void add(ProgrammingLanguage programmingLanguage) {
+    public void add(ProgrammingLanguage programmingLanguage) throws Exception {
+        this.isNameEmpty(programmingLanguage);
+        this.isNameAlreadyExist(programmingLanguage);
         pLRepository.add(programmingLanguage);
     }
 
     @Override
-    public ProgrammingLanguage update(int id, ProgrammingLanguage programmingLanguage) {
+    public ProgrammingLanguage update(int id, ProgrammingLanguage programmingLanguage) throws Exception {
+        this.isNameEmpty(programmingLanguage);
+        this.isNameAlreadyExist(programmingLanguage);
         return pLRepository.update(id, programmingLanguage);
     }
 
     @Override
     public void delete(int id) {
         pLRepository.delete(id);
+    }
+
+    @Override
+    public void isNameEmpty(ProgrammingLanguage programmingLanguage) throws Exception {
+        if (programmingLanguage.getName().trim().isEmpty() || programmingLanguage.getName().isBlank()){
+
+                throw new Exception(LanguageMesageEnum.NOTNULL.getMessage());
+        }
+    }
+
+    @Override
+    public void isNameAlreadyExist(ProgrammingLanguage programmingLanguage) throws Exception {
+        List<ProgrammingLanguage> languageList = pLRepository.getAll();
+
+        for (ProgrammingLanguage pl : languageList){
+            if (pl.getName().equalsIgnoreCase((programmingLanguage.getName()))){
+
+                    throw new Exception(LanguageMesageEnum.ALREADYEXIST.getMessage());
+            }
+        }
     }
 }
