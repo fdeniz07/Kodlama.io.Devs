@@ -10,9 +10,13 @@ public interface ProgrammingLanguageService {
 
     ProgrammingLanguage getById(int id);
 
-    void add(ProgrammingLanguage programmingLanguage);
+    void add(ProgrammingLanguage programmingLanguage) throws Exception;
 
-    ProgrammingLanguage update(int id,ProgrammingLanguage programmingLanguage);
+    ProgrammingLanguage update(int id,ProgrammingLanguage programmingLanguage) throws Exception;
 
     void delete(int id);
+
+    void isNameEmpty(ProgrammingLanguage programmingLanguage) throws Exception;
+
+    void isNameAlreadyExist(ProgrammingLanguage programmingLanguage) throws Exception;
 }
