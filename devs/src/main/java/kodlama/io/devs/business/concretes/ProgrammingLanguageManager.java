@@ -1,7 +1,7 @@
 package kodlama.io.devs.business.concretes;
 
 import kodlama.io.devs.business.abstracts.ProgrammingLanguageService;
-import kodlama.io.devs.core.enums.LanguageMesageEnum;
+import kodlama.io.devs.core.enums.LanguageMessageEnum;
 import kodlama.io.devs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlama.io.devs.entities.concretes.ProgrammingLanguage;
 import org.springframework.stereotype.Service;
@@ -50,7 +50,7 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
     public void isNameEmpty(ProgrammingLanguage programmingLanguage) throws Exception {
         if (programmingLanguage.getName().trim().isEmpty() || programmingLanguage.getName().isBlank()){
 
-                throw new Exception(LanguageMesageEnum.NOTNULL.getMessage());
+                throw new Exception(LanguageMessageEnum.NOTNULL.getMessage());
         }
     }
 
@@ -61,7 +61,7 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
         for (ProgrammingLanguage pl : languageList){
             if (pl.getName().equalsIgnoreCase((programmingLanguage.getName()))){
 
-                    throw new Exception(LanguageMesageEnum.ALREADYEXIST.getMessage());
+                    throw new Exception(LanguageMessageEnum.ALREADYEXIST.getMessage());
             }
         }
     }
