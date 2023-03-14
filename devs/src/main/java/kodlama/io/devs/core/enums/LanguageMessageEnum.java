@@ -1,6 +1,6 @@
 package kodlama.io.devs.core.enums;
 
-public enum LanguageMesageEnum {
+public enum LanguageMessageEnum {
 
     NOTNULL(1,"Programming Language cannot be empty"),
     ALREADYEXIST(2,"Programming Language is already exist");
@@ -8,7 +8,7 @@ public enum LanguageMesageEnum {
     private final int code;
     private final String message;
 
-    LanguageMesageEnum(int code, String message) {
+    LanguageMessageEnum(int code, String message) {
         this.code = code;
         this.message = message;
     }
