@@ -1,4 +1,4 @@
-package kodlama.io.devs.core.enums;
+package kodlama.io.devs.core.utilities.enums;
 
 public enum LanguageMessageEnum {
 
