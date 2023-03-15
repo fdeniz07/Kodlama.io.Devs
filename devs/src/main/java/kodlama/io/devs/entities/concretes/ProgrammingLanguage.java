@@ -15,6 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class ProgrammingLanguage {
 
     @Id
