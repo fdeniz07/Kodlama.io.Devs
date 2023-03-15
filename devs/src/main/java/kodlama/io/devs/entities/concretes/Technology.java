@@ -7,15 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
-
-@Table(name="programmingLanguages")
+@Table(name = "technologies")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProgrammingLanguage {
+public class Technology {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +22,7 @@ public class ProgrammingLanguage {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "programmingLanguage", cascade = CascadeType.ALL)
-    private List<Technology> technologies;
-
-
+    @ManyToOne
+    @JoinColumn(name = "programmingLanguageId")
+    private ProgrammingLanguage programmingLanguage;
 }
