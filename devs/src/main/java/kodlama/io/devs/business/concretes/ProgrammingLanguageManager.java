@@ -2,10 +2,9 @@ package kodlama.io.devs.business.concretes;
 
 import kodlama.io.devs.business.abstracts.ProgrammingLanguageService;
 import kodlama.io.devs.business.requests.CreateProgrammingLanguageRequest;
-import kodlama.io.devs.business.requests.DeleteProgrammingLanguageRequest;
 import kodlama.io.devs.business.requests.UpdateProgrammingLanguageRequest;
 import kodlama.io.devs.business.responses.GetAllProgrammingLanguagesResponse;
-import kodlama.io.devs.core.enums.LanguageMessageEnum;
+import kodlama.io.devs.core.utilities.enums.LanguageMessageEnum;
 import kodlama.io.devs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlama.io.devs.entities.concretes.ProgrammingLanguage;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import java.util.List;
 @Service
 public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 
-    private ProgrammingLanguageRepository pLRepository;
+    private final ProgrammingLanguageRepository pLRepository;
 
     public ProgrammingLanguageManager(ProgrammingLanguageRepository pLRepository) {
         this.pLRepository = pLRepository;
@@ -26,7 +25,7 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
     public List<GetAllProgrammingLanguagesResponse> getAll() {
 
         List<ProgrammingLanguage> programmingLanguages = pLRepository.findAll();
-        List<GetAllProgrammingLanguagesResponse> programmingLanguagesResponses = new ArrayList<GetAllProgrammingLanguagesResponse>();
+        List<GetAllProgrammingLanguagesResponse> programmingLanguagesResponses = new ArrayList<>();
 
         for (ProgrammingLanguage programmingLanguage : programmingLanguages) {
 
@@ -44,11 +43,11 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
     @Override
     public GetAllProgrammingLanguagesResponse getById(int id) {
 
-      GetAllProgrammingLanguagesResponse programmingLanguagesResponse = new GetAllProgrammingLanguagesResponse();
-      ProgrammingLanguage programmingLanguage = pLRepository.findById(id).orElseThrow();
-      programmingLanguagesResponse.setName(programmingLanguage.getName());
+        GetAllProgrammingLanguagesResponse programmingLanguagesResponse = new GetAllProgrammingLanguagesResponse();
+        ProgrammingLanguage programmingLanguage = pLRepository.findById(id).orElseThrow();
+        programmingLanguagesResponse.setName(programmingLanguage.getName());
 
-      return programmingLanguagesResponse;
+        return programmingLanguagesResponse;
     }
 
 
@@ -63,22 +62,20 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
     }
 
     @Override
-    public void update(UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest) throws Exception {
-        ProgrammingLanguage programmingLanguage = new ProgrammingLanguage();
-        programmingLanguage.setName(updateProgrammingLanguageRequest.getName());
-        this.isNameEmpty(programmingLanguage);
-        this.isNameAlreadyExist(programmingLanguage);
-        pLRepository.save(programmingLanguage);
+    public void update(int programmingLanguageId, UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest) throws Exception {
 
+        ProgrammingLanguage programmingLanguage = pLRepository.findById(programmingLanguageId).orElseThrow(() -> new Exception("There is no language for this id:" + programmingLanguageId));
+        programmingLanguage.setName(updateProgrammingLanguageRequest.getName());
+       this.isNameEmpty(programmingLanguage);
+//        this.isNameAlreadyExist(programmingLanguage);
+        pLRepository.save(programmingLanguage);
     }
 
     @Override
-    public void delete(DeleteProgrammingLanguageRequest deleteProgrammingLanguageRequest) throws Exception {
-        ProgrammingLanguage programmingLanguage = new ProgrammingLanguage();
-        programmingLanguage.setName(deleteProgrammingLanguageRequest.getName());
-        this.isNameEmpty(programmingLanguage);
-        this.isNameAlreadyExist(programmingLanguage);
-        pLRepository.save(programmingLanguage);
+    public void delete(int programmingLanguageId) throws Exception {
+        pLRepository.findById(programmingLanguageId).orElseThrow(() -> new Exception("There is no language for this id:" + programmingLanguageId));
+
+        this.pLRepository.deleteById(programmingLanguageId);
     }
 
     @Override
