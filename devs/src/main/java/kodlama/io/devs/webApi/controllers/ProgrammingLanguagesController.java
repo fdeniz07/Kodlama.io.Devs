@@ -1,10 +1,13 @@
 package kodlama.io.devs.webApi.controllers;
 
+import jakarta.validation.Valid;
 import kodlama.io.devs.business.abstracts.ProgrammingLanguageService;
-import kodlama.io.devs.business.requests.CreateProgrammingLanguageRequest;
-import kodlama.io.devs.business.requests.UpdateProgrammingLanguageRequest;
-import kodlama.io.devs.business.responses.GetAllProgrammingLanguagesResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlama.io.devs.business.dtos.requests.CreateProgrammingLanguageRequest;
+import kodlama.io.devs.business.dtos.requests.UpdateProgrammingLanguageRequest;
+import kodlama.io.devs.business.dtos.responses.GetAllProgrammingLanguagesResponse;
+import kodlama.io.devs.business.dtos.responses.GetByIdProgrammingLanguageResponse;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,42 +15,45 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/programminglanguages")
+@AllArgsConstructor
 public class ProgrammingLanguagesController {
 
     private final ProgrammingLanguageService plService;
 
-    @Autowired
-    public ProgrammingLanguagesController(ProgrammingLanguageService plService) {
-        this.plService = plService;
-    }
+//    @Autowired
+//    public ProgrammingLanguagesController(ProgrammingLanguageService plService) {
+//        this.plService = plService;
+//    }
 
-    @GetMapping("/getall")
+    @GetMapping()
     public List<GetAllProgrammingLanguagesResponse> getAll() {
         return plService.getAll();
     }
 
-    @GetMapping("/getbyid/{id}")
-    public GetAllProgrammingLanguagesResponse getById(@PathVariable("id") int id) {
+    @GetMapping("/{id}")
+    public GetByIdProgrammingLanguageResponse getById(@PathVariable int id) {
         return plService.getById(id);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<String> add(@RequestBody CreateProgrammingLanguageRequest createProgrammingLanguageRequest) throws Exception {
-        try {
-            plService.add(createProgrammingLanguageRequest);
-            return ResponseEntity.created(null).body("created");
-        } catch (Exception exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        }
+    @PostMapping()
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public void add(@RequestBody @Valid() CreateProgrammingLanguageRequest createProgrammingLanguageRequest) {
+//        try {
+//            plService.add(createProgrammingLanguageRequest);
+//            return ResponseEntity.created(null).body("created");
+//        } catch (Exception exception) {
+//            return ResponseEntity.badRequest().body(exception.getMessage());
+//        }
+        this.plService.add(createProgrammingLanguageRequest);
     }
 
-    @PutMapping("/update/{id}")
-    void update(@PathVariable("id") int id, @RequestBody UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest) throws Exception {
-        this.plService.update(id,updateProgrammingLanguageRequest);
+    @PutMapping()
+    public void update(@RequestBody() @Valid() UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest) {
+        this.plService.update(updateProgrammingLanguageRequest);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable("id") int id) throws Exception {
+    @DeleteMapping("/{id}")
+    public void delete(int id) {
         this.plService.delete (id);
     }
 }
