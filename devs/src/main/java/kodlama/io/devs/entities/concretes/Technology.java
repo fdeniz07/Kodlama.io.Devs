@@ -24,6 +24,6 @@ public class Technology {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "programmingLanguageId")
+    @JoinColumn(name = "programmingLanguage_id")
     private ProgrammingLanguage programmingLanguage;
 }
