@@ -1,4 +1,4 @@
-package kodlama.io.devs.business.requests;
+package kodlama.io.devs.business.dtos.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeleteProgrammingLanguageRequest {
+public class GetAllTechnologiesResponse {
 
+    private int id;
     private String name;
+    private String programmingLanguageName;
 }
