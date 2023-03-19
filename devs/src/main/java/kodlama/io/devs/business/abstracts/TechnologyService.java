@@ -1,10 +1,9 @@
 package kodlama.io.devs.business.abstracts;
 
-import kodlama.io.devs.business.requests.CreateTechnologyRequest;
-import kodlama.io.devs.business.requests.DeleteTechnologyRequest;
-import kodlama.io.devs.business.requests.UpdateTechnologyRequest;
-import kodlama.io.devs.business.responses.GetAllTechnologiesResponse;
-import kodlama.io.devs.entities.concretes.Technology;
+import kodlama.io.devs.business.dtos.requests.CreateTechnologyRequest;
+import kodlama.io.devs.business.dtos.requests.UpdateTechnologyRequest;
+import kodlama.io.devs.business.dtos.responses.GetAllTechnologiesResponse;
+import kodlama.io.devs.business.dtos.responses.GetByIdTechnologyResponse;
 
 import java.util.List;
 
@@ -12,15 +11,15 @@ public interface TechnologyService {
 
     List<GetAllTechnologiesResponse> getAll();
 
-    GetAllTechnologiesResponse getById(int id);
+    GetByIdTechnologyResponse getById(int id);
 
-    void add(CreateTechnologyRequest createTechnologyRequest) throws Exception;
+    void add(CreateTechnologyRequest createTechnologyRequest);
 
-    void update(int technologyId,UpdateTechnologyRequest updateTechnologyRequest) throws Exception;
+    void update(UpdateTechnologyRequest updateTechnologyRequest);
 
-    void delete(int technologyId,DeleteTechnologyRequest deleteTechnologyRequest) throws Exception;
+    void delete(int id);
 
-    void isNameEmpty(Technology technology) throws Exception;
+    //void isNameEmpty(Technology technology) throws Exception;
 
-    void isNameAlreadyExist(Technology technology) throws Exception;
+    //void isNameAlreadyExist(Technology technology) throws Exception;
 }
