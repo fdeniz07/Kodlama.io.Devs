@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProgrammingLanguageRepository extends JpaRepository<ProgrammingLanguage,Integer> {
 
-    //Bütün özellikler JPA Repository den geliyor
+    boolean existsByName(String name);
 }
