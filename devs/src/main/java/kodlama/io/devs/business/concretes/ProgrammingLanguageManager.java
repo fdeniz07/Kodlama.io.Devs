@@ -35,7 +35,6 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 //            responseItem.setName(programmingLanguage.getName());
 //
 //            programmingLanguagesResponses.add(responseItem);
-//
 //        }
 //
 //        return programmingLanguagesResponses;
@@ -70,12 +69,12 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
         this.programmingLanguageBusinessRules.checkIfProgrammingLanguageNameExists(createProgrammingLanguageRequest.getName());
 
         ProgrammingLanguage programmingLanguage = this.modelMapperService.forRequest().map(createProgrammingLanguageRequest, ProgrammingLanguage.class);
-
+        programmingLanguage.setId(0);
         this.pLRepository.save(programmingLanguage);
     }
 
     @Override
-    public void update(UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest)  {
+    public void update(UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest) {
 
 //        ProgrammingLanguage programmingLanguage = pLRepository.findById(programmingLanguageId).orElseThrow(() -> new Exception("There is no language for this id:" + programmingLanguageId));
 //        programmingLanguage.setName(updateProgrammingLanguageRequest.getName());
@@ -86,12 +85,12 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
         this.programmingLanguageBusinessRules.checkIfProgrammingLanguageNameExists(updateProgrammingLanguageRequest.getName());
 
         ProgrammingLanguage programmingLanguage = this.modelMapperService.forRequest().map(updateProgrammingLanguageRequest, ProgrammingLanguage.class);
-
+        programmingLanguage.setId(0);
         this.pLRepository.save(programmingLanguage);
     }
 
     @Override
-    public void delete(int id)  {
+    public void delete(int id) {
 //        pLRepository.findById(programmingLanguageId).orElseThrow(() -> new Exception("There is no language for this id:" + programmingLanguageId));
 //
 //        this.pLRepository.deleteById(programmingLanguageId);
