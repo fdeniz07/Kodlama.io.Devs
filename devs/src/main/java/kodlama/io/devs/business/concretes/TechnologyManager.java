@@ -71,6 +71,7 @@ public class TechnologyManager implements TechnologyService {
         this.technologyBusinessRules.checkIfTechnologyNameExists(createTechnologyRequest.getName());
 
         Technology technology = this.modelMapperService.forRequest().map(createTechnologyRequest, Technology.class);
+        technology.setId(0);
         this.tRepository.save(technology);
     }
 
@@ -85,6 +86,7 @@ public class TechnologyManager implements TechnologyService {
         this.technologyBusinessRules.checkIfTechnologyNameExists(updateTechnologyRequest.getName());
 
         Technology technology = this.modelMapperService.forRequest().map(updateTechnologyRequest, Technology.class);
+        technology.setId(0);
         this.tRepository.save(technology);
     }
 

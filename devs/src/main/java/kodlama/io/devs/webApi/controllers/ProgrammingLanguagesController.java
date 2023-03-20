@@ -8,7 +8,6 @@ import kodlama.io.devs.business.dtos.responses.GetAllProgrammingLanguagesRespons
 import kodlama.io.devs.business.dtos.responses.GetByIdProgrammingLanguageResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class ProgrammingLanguagesController {
     }
 
     @GetMapping("/{id}")
-    public GetByIdProgrammingLanguageResponse getById(@PathVariable int id) {
+    public GetByIdProgrammingLanguageResponse getById(@PathVariable @RequestParam(name = "id") int id) {
         return plService.getById(id);
     }
 
@@ -53,7 +52,7 @@ public class ProgrammingLanguagesController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(int id) {
+    public void delete(@RequestParam(name = "id") int id) {
         this.plService.delete (id);
     }
 }
