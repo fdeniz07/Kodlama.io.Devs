@@ -30,7 +30,7 @@ public class TechnologiesController {
     }
 
     @GetMapping("/{id}")
-    public GetByIdTechnologyResponse getById(@PathVariable int id) {
+    public GetByIdTechnologyResponse getById(@PathVariable @RequestParam(name = "id") int id) {
         return technologyService.getById(id);
     }
 
@@ -52,7 +52,7 @@ public class TechnologiesController {
     }
 
     @DeleteMapping("/{id}")
-    void delete(int id) {
+    void delete(@RequestParam(name = "id") int id) {
         this.technologyService.delete(id);
     }
 }
